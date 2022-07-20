@@ -21,6 +21,11 @@ public class CataMvc4Application {
 		produitRepository.save(new Produit("Imprimante Epson", 450, 12));
 		produitRepository.save(new Produit("Imp HP 5400", 45, 10));
 		
+		produitRepository.save(new Produit("PC Gamer", 2515, 28));
+		produitRepository.save(new Produit("PC de Bureau", 549, 125));
+		produitRepository.save(new Produit("Casque VR", 450, 12));
+		produitRepository.save(new Produit("Souris Gaming", 120, 150));
+		
 		produitRepository.findAll().forEach(p->System.out.println(p.getDesignation()));
 	}
 
