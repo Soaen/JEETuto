@@ -1,8 +1,12 @@
-package fr.exemple.dao;
+package fr.example.dao;
 
-import fr.exemple.entities.Produit;
 import org.springframework.data.jpa.repository.JpaRepository;
 
+import fr.example.entities.Produit;
+
 public interface ProduitRepository extends JpaRepository<Produit, Long>{
+	
+	
+	
 
 }
