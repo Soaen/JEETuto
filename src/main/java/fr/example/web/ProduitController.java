@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,6 +28,7 @@ public String index(Model model,
 	Page<Produit> pageProduits = produitRepository.chercher("%"+mc+"%",PageRequest.of(p, s));
 	
 	model.addAttribute("listProduits",pageProduits.getContent());
+	
 	int[] pages= new int[pageProduits.getTotalPages()];
 	model.addAttribute("pages", pages);
 	model.addAttribute("size", s);
@@ -40,4 +42,20 @@ public String delete(Long id,String motCle,int page, int size) {
 	produitRepository.deleteById(id);
 	return "redirect:/index?page=" +page+"&size="+size+"&motCle="+motCle;
 }
+
+@RequestMapping(value="/form", method=RequestMethod.GET)
+public String formProduit(Model model) {
+	model.addAttribute("produit", new Produit());
+	return "FormProduit";
+}
+
+@RequestMapping(value="/save", method=RequestMethod.POST)
+public String save(Model model, Produit produit, BindingResult bindingResult) {
+	if(bindingResult.hasErrors())
+	return "FormProduit";
+	produitRepository.save(produit);
+	return "Confirmation";
+}
+
+
 }
