@@ -2,6 +2,8 @@ package fr.example.web;
 
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -50,7 +52,7 @@ public class ProduitController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public String save(Model model, Produit produit, BindingResult bindingResult) {
+	public String save(Model model,  @Valid  Produit produit, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return "FormProduit";
 		produitRepository.save(produit);
@@ -66,5 +68,16 @@ public class ProduitController {
 		}
 		return "EditProduit";
 	}
+	
+	
+	@RequestMapping(value="/")
+	public String home() {
+		return "redirect:/index";
+	}
 
+	@RequestMapping(value="/403")
+	public String accessDenied() {
+		return "403";
+	}
+	
 }
