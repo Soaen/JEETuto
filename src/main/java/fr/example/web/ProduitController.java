@@ -36,7 +36,6 @@ public class ProduitController {
 		model.addAttribute("pageCourante", p);
 		model.addAttribute("motCle", mc);
 		return "produits";
-
 	}
 
 	@RequestMapping(value = "/delete", method = RequestMethod.GET)
