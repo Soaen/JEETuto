@@ -21,7 +21,6 @@ public class CataMvc4Application {
 		produitRepository.save(new Produit("Imprimante", 450, 12));
 		produitRepository.save(new Produit("Imp HP 5400", 45, 10));
 		
-		
 		produitRepository.findAll().forEach(p->System.out.println(p.getDesignation()));
 	}
 
