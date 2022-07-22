@@ -3,11 +3,16 @@ package fr.example.sec;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.Md4PasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
@@ -28,8 +33,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		auth.jdbcAuthentication()
 		.dataSource(datasource)
 		.usersByUsernameQuery("select login as principal,pass as credentials,active from users where login=?")
-		.authoritiesByUsernameQuery("select login as principal,role as role from user_roles where login=?")
-		//.passwordEncoder(new Md5PasswordEncoder())
+		.authoritiesByUsernameQuery("select login as principal,role as role from users_role where login=?")
+		.passwordEncoder(NoOpPasswordEncoder.getInstance())
 		.rolePrefix("ROLE_");
 	}
 	
@@ -40,4 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests().antMatchers("/form","/save","/edit","/delete").hasRole("ADMIN");
 		http.exceptionHandling().accessDeniedPage("/403");	
 	}
+	
 }
+
+
