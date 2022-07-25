@@ -79,4 +79,9 @@ public class ProduitController {
 		return "403";
 	}
 	
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
 }
